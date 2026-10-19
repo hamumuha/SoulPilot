@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.env
+.env.*
+!*.example
+__pycache__/
+*.pyc
+.venv/
+venv/
+conversations/
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# 数据库导出可能含 API Key 等敏感数据，不要入库
+*.sql.gz
+db_dumps/
+
+# 文档类文件不入库
+*.pdf

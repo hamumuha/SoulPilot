@@ -1,0 +1,19 @@
+# 敏感信息：绝不能进镜像
+.env
+.env.*
+!*.example
+
+# 本地环境与缓存
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.log
+*.tsbuildinfo
+
+# 本地导出的对话记录
+conversations/
+
+# 测试
+tests/

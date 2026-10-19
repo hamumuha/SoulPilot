@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  width: 100%;
+  min-height: 100%;
+  background: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+html, body {
+  /* 允许心灵之旅页面正常滚动；宠物/对话/设置均为 fixed/portal 不受影响 */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#app {
+  position: relative;
+}
+
+:root {
+  --theme-primary: #FF9800;
+  --theme-bg: #ffffff;
+  --theme-text: #303133;
+  --theme-chat-bg: #fafafa;
+  --theme-border: #e4e7ed;
+}
+
+:root[data-theme="shiba"] { --theme-primary: #FF9800; }
+:root[data-theme="blue"] { --theme-primary: #409EFF; }
+:root[data-theme="purple"] { --theme-primary: #8B5CF6; }
+:root[data-theme="green"] { --theme-primary: #10B981; }
+
+:root[data-font-size="small"] { --chat-font-size: 13px; }
+:root[data-font-size="medium"] { --chat-font-size: 14px; }
+:root[data-font-size="large"] { --chat-font-size: 16px; }
+
+:root.dark {
+  --theme-bg: #1a1a2e;
+  --theme-text: #e0e0e0;
+  --theme-chat-bg: #16213e;
+  --theme-border: #2d3748;
+}
+
+:root.dark .el-dialog,
+:root.dark .el-drawer {
+  --el-bg-color: #1a1a2e;
+}
+
+/* 合并后根容器：承载路由视图 + 登录后浮动的 hamu-pet 宠物/对话/设置 */
+.app-root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 宠物浮动层：浮在页面内容(<=1000)之上、Element Plus 弹层(>=2000)之下。
+   保持 1000 < z-index < 2000，否则 el-dialog/el-drawer 内的 el-select 下拉
+   等弹层会被宠物层遮挡（下拉实际已打开但被盖住、点击穿透到下层表单）。
+   pointer-events 由各组件内部控制。 */
+.pet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1500;
+}
+
+.pet-overlay > * {
+  pointer-events: auto;
+}
