@@ -29,9 +29,22 @@ def format_friendly_error(error: str) -> str:
 
 
 def normalize_openai_url(api_url: str) -> str:
-    if api_url.endswith("/v1") or api_url.endswith("/v1/"):
-        return api_url.rstrip("/") + "/chat/completions"
-    return api_url
+    """把各种风格的 OpenAI 兼容 API URL 统一成 /v1/chat/completions 完整路径。
+
+    支持的输入:
+      https://api.deepseek.com                     -> https://api.deepseek.com/v1/chat/completions
+      https://api.deepseek.com/                    -> https://api.deepseek.com/v1/chat/completions
+      https://api.deepseek.com/v1                  -> https://api.deepseek.com/v1/chat/completions
+      https://api.deepseek.com/v1/                 -> https://api.deepseek.com/v1/chat/completions
+      https://api.deepseek.com/v1/chat/completions -> 原样返回
+      https://api.deepseek.com/chat/completions    -> https://api.deepseek.com/v1/chat/completions
+    """
+    trimmed = api_url.rstrip("/")
+    if trimmed.endswith("/chat/completions"):
+        return trimmed
+    if trimmed.endswith("/v1"):
+        return trimmed + "/chat/completions"
+    return trimmed + "/v1/chat/completions"
 
 
 def check_vision_support(provider: str, model_id: str) -> bool:

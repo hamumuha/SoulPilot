@@ -12,6 +12,9 @@ conversations/
 *.log
 *.tsbuildinfo
 
+# HTTPS 证书与私钥，绝不可入库
+certs/
+
 # 数据库导出可能含 API Key 等敏感数据，不要入库
 *.sql.gz
 db_dumps/
